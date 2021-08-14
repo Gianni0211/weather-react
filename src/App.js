@@ -1,10 +1,12 @@
-import logo from "./logo.svg";
 import "./App.css";
+import MainCard from "./Components/MainCard/MainCard";
+import DataBoard from "./Components/DataBoard/DataBoard";
 
 function App() {
   return (
     <div className="App">
-      <h1>Weather App</h1>
+      <MainCard />
+      <DataBoard />
     </div>
   );
 }
