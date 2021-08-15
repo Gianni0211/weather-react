@@ -5,7 +5,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const searchButton = (props) => {
   return (
-    <button type="submit">
+    <button className="search-btn" type="submit">
       <span>
         <FontAwesomeIcon icon={faSpinner} />
       </span>
