@@ -20,3 +20,6 @@
 .search-input:focus {
   outline: none;
 }
+.suggestions-container {
+  overflow-y: auto;
+}
