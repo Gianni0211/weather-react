@@ -2,10 +2,10 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  height: 100%;
+
   width: 20%;
   color: red !important;
 }
