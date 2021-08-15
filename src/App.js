@@ -5,8 +5,10 @@ import DataBoard from "./Components/DataBoard/DataBoard";
 function App() {
   return (
     <div className="App">
-      <MainCard />
-      <DataBoard />
+      <div className="app-container">
+        <MainCard />
+        <DataBoard />
+      </div>
     </div>
   );
 }
