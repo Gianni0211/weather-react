@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./SearchBar.css";
 import axios from "axios";
 import apiKey from "../../consts/autocompleteKey";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import SearchButton from "./SearchButton/SearchButton";
 import AutoCompleteItem from "./AutocompleteItem/AutoCompleteItem";
 
@@ -15,25 +16,39 @@ const SearchBar = (props) => {
   const autoCompleteHandleClick = (text) => {
     let selectedText = text.target.textContent;
     setInputText(selectedText);
+    setSuggestions([]);
+  };
+
+  const clearInput = (e) => {
+    e.preventDefault();
+    setInputText("");
+    resetSuggestions();
   };
 
   const onChangeHandler = async (e) => {
     let text = e.target.value;
     setInputText(text);
-    if (inputText.length >= 3) {
+
+    if (inputText.length >= 2) {
       await axios
         .get(`${autoCompleteUrl}?q=${inputText}&apiKey=${apiKey}`)
         .then((response) => {
           setSuggestions(response.data.items);
         });
+    } else {
+      setSuggestions([]);
     }
+  };
+  const resetSuggestions = () => {
+    setSuggestions([]);
   };
   return (
     <div>
       <form className="search-bar">
-        <span className="search-icon">
+        {/* <span className="search-icon">
           <FontAwesomeIcon icon={faSearch} />
-        </span>
+        </span> */}
+        <SearchButton bg={"white-bg"} icon={faSearch} />
 
         <input
           className="search-input"
@@ -42,7 +57,11 @@ const SearchBar = (props) => {
           value={inputText}
           onChange={onChangeHandler}
         />
-        <SearchButton />
+        <SearchButton
+          bg={"gray-bg"}
+          icon={faTimes}
+          btnClikcHandler={clearInput}
+        />
       </form>
       <div className="suggestions-container">
         {suggestions.length === 0
