@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./SearchBar.css";
 import axios from "axios";
 import apiKey from "../../consts/autocompleteKey";
-
+import { autoCompleteUrl } from "../../consts/url";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import SearchButton from "./SearchButton/SearchButton";
@@ -12,7 +12,6 @@ const SearchBar = (props) => {
   const [inputText, setInputText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  const autoCompleteUrl = `https://autocomplete.search.hereapi.com/v1/autocomplete`;
   const autoCompleteHandleClick = (text) => {
     let selectedText = text.target.textContent;
     setInputText(selectedText);
@@ -41,6 +40,10 @@ const SearchBar = (props) => {
   };
   const resetSuggestions = () => {
     setSuggestions([]);
+  };
+
+  const reverseSuggestions = (suggestion) => {
+    return suggestion.split(",").reverse().join("");
   };
   return (
     <div>
@@ -71,7 +74,7 @@ const SearchBar = (props) => {
                 <AutoCompleteItem
                   autoCompleteHandleClick={autoCompleteHandleClick}
                   key={i}
-                  label={el.title}
+                  label={reverseSuggestions(el.title)}
                 />
               );
             })}
