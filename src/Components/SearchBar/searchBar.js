@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "./SearchBar.css";
 import axios from "axios";
 import apiKey from "../../consts/autocompleteKey";
+import weatherKey from "../../consts/weatherKey";
 import { autoCompleteUrl } from "../../consts/url";
+import { weatherUrl } from "../../consts/url";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import SearchButton from "./SearchButton/SearchButton";
@@ -11,10 +13,23 @@ import AutoCompleteItem from "./AutocompleteItem/AutoCompleteItem";
 const SearchBar = (props) => {
   const [inputText, setInputText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [searchLocation, setsearchLocation] = useState({});
 
   const autoCompleteHandleClick = (text) => {
     let selectedText = text.target.textContent;
     setInputText(selectedText);
+    let matchedSugg = suggestions.filter((el) => {
+      return reverseSuggestions(el.title) === selectedText;
+    })[0];
+    console.log(matchedSugg);
+    let countryCode = matchedSugg.address.countryCode;
+    let cityName = matchedSugg.title.split(",");
+    cityName = cityName[cityName.length - 1];
+    setsearchLocation({
+      cityName,
+      countryCode,
+    });
+
     setSuggestions([]);
   };
 
@@ -29,6 +44,10 @@ const SearchBar = (props) => {
     setInputText(text);
 
     if (inputText.length >= 2) {
+      setsearchLocation({
+        cityName: text,
+        countryCode: "",
+      });
       await axios
         .get(`${autoCompleteUrl}?q=${inputText}&apiKey=${apiKey}`)
         .then((response) => {
@@ -41,6 +60,25 @@ const SearchBar = (props) => {
   const resetSuggestions = () => {
     setSuggestions([]);
   };
+  const getWeather = async (e) => {
+    e.preventDefault();
+    let city = searchLocation.cityName.replace(/\s/g, "");
+    if (searchLocation.countryCode) {
+      let cnt = searchLocation.countryCode.toLowerCase();
+      console.log(city);
+      await axios
+        .get(`${weatherUrl}?q=${city},${cnt}&appid=${weatherKey}`)
+        .then((resp) => {
+          console.log(resp.data);
+        });
+    } else {
+      await axios
+        .get(`${weatherUrl}?q=${city}&appid=${weatherKey}`)
+        .then((resp) => {
+          console.log(resp.data);
+        });
+    }
+  };
 
   const reverseSuggestions = (suggestion) => {
     return suggestion.split(",").reverse().join("");
@@ -48,10 +86,11 @@ const SearchBar = (props) => {
   return (
     <div>
       <form className="search-bar">
-        {/* <span className="search-icon">
-          <FontAwesomeIcon icon={faSearch} />
-        </span> */}
-        <SearchButton bg={"white-bg"} icon={faSearch} />
+        <SearchButton
+          bg={"white-bg"}
+          icon={faSearch}
+          btnClikcHandler={getWeather}
+        />
 
         <input
           className="search-input"
