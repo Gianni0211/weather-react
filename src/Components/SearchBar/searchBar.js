@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./SearchBar.css";
 import axios from "axios";
 import apiKey from "../../consts/autocompleteKey";
@@ -9,11 +9,15 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import SearchButton from "./SearchButton/SearchButton";
 import AutoCompleteItem from "./AutocompleteItem/AutoCompleteItem";
+import LocationCurrentContext from "../../store/LocationCurrentContext";
 
 const SearchBar = (props) => {
   const [inputText, setInputText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [searchLocation, setsearchLocation] = useState({});
+  const [currentWeather, setCurrentWeather] = useContext(
+    LocationCurrentContext
+  );
 
   const autoCompleteHandleClick = (text) => {
     let selectedText = text.target.textContent;
@@ -69,13 +73,15 @@ const SearchBar = (props) => {
       await axios
         .get(`${weatherUrl}?q=${city},${cnt}&appid=${weatherKey}`)
         .then((resp) => {
-          console.log(resp.data);
+          setCurrentWeather(resp.data);
+          console.log(currentWeather);
         });
     } else {
       await axios
         .get(`${weatherUrl}?q=${city}&appid=${weatherKey}`)
         .then((resp) => {
-          console.log(resp.data);
+          setCurrentWeather(resp.data);
+          console.log(currentWeather);
         });
     }
   };
