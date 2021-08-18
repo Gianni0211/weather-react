@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
 import "./SearchBar.css";
 import axios from "axios";
-import apiKey from "../../consts/autocompleteKey";
-import weatherKey from "../../consts/weatherKey";
-import { autoCompleteUrl } from "../../consts/url";
-import { weatherUrl } from "../../consts/url";
+import apiKey from "../../../consts/autocompleteKey";
+import weatherKey from "../../../consts/weatherKey";
+import { autoCompleteUrl } from "../../../consts/url";
+import { weatherUrl } from "../../../consts/url";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import SearchButton from "./SearchButton/SearchButton";
 import AutoCompleteItem from "./AutocompleteItem/AutoCompleteItem";
-import LocationCurrentContext from "../../store/LocationCurrentContext";
+import LocationCurrentContext from "../../../store/LocationCurrentContext";
 
 const SearchBar = (props) => {
   const [inputText, setInputText] = useState("");
@@ -25,7 +25,6 @@ const SearchBar = (props) => {
     let matchedSugg = suggestions.filter((el) => {
       return reverseSuggestions(el.title) === selectedText;
     })[0];
-    console.log(matchedSugg);
     let countryCode = matchedSugg.address.countryCode;
     let cityName = matchedSugg.title.split(",");
     cityName = cityName[cityName.length - 1];
@@ -69,19 +68,17 @@ const SearchBar = (props) => {
     let city = searchLocation.cityName.replace(/\s/g, "");
     if (searchLocation.countryCode) {
       let cnt = searchLocation.countryCode.toLowerCase();
-      console.log(city);
+
       await axios
         .get(`${weatherUrl}?q=${city},${cnt}&appid=${weatherKey}`)
         .then((resp) => {
           setCurrentWeather(resp.data);
-          console.log(currentWeather);
         });
     } else {
       await axios
         .get(`${weatherUrl}?q=${city}&appid=${weatherKey}`)
         .then((resp) => {
           setCurrentWeather(resp.data);
-          console.log(currentWeather);
         });
     }
   };
