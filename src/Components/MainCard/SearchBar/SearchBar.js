@@ -54,7 +54,17 @@ const SearchBar = (props) => {
       await axios
         .get(`${autoCompleteUrl}?q=${inputText}&apiKey=${apiKey}`)
         .then((response) => {
-          setSuggestions(response.data.items);
+          console.log(response.data.items[0].address);
+          let suggestions = [];
+          response.data.items.map((el) => {
+            console.log(el.address);
+            let res = {
+              name: el.address.label.split(",")[0],
+              country: el.countryName,
+            };
+            suggestions.push(res);
+          });
+          setSuggestions(suggestions);
         });
     } else {
       setSuggestions([]);
@@ -73,6 +83,7 @@ const SearchBar = (props) => {
         .get(`${weatherUrl}?q=${city},${cnt}&appid=${weatherKey}`)
         .then((resp) => {
           setCurrentWeather(resp.data);
+          console.log(resp.data);
         });
     } else {
       await axios
@@ -81,6 +92,8 @@ const SearchBar = (props) => {
           setCurrentWeather(resp.data);
         });
     }
+    setInputText("");
+    resetSuggestions();
   };
 
   const reverseSuggestions = (suggestion) => {
