@@ -23,11 +23,11 @@ const SearchBar = (props) => {
     let selectedText = text.target.textContent;
     setInputText(selectedText);
     let matchedSugg = suggestions.filter((el) => {
-      return reverseSuggestions(el.title) === selectedText;
+      return selectedText === el.name;
     })[0];
-    let countryCode = matchedSugg.address.countryCode;
-    let cityName = matchedSugg.title.split(",");
-    cityName = cityName[cityName.length - 1];
+
+    let countryCode = matchedSugg.countryCode;
+    let cityName = matchedSugg.name.split(",")[0];
     setsearchLocation({
       cityName,
       countryCode,
@@ -54,13 +54,13 @@ const SearchBar = (props) => {
       await axios
         .get(`${autoCompleteUrl}?q=${inputText}&apiKey=${apiKey}`)
         .then((response) => {
-          console.log(response.data.items[0].address);
           let suggestions = [];
           response.data.items.map((el) => {
-            console.log(el.address);
+            let labelArr = el.address.label.split(",");
+            let name = `${labelArr[0]}, ${labelArr[1]}`;
             let res = {
-              name: el.address.label.split(",")[0],
-              country: el.countryName,
+              name,
+              countryCode: el.address.countryCode,
             };
             suggestions.push(res);
           });
@@ -96,9 +96,6 @@ const SearchBar = (props) => {
     resetSuggestions();
   };
 
-  const reverseSuggestions = (suggestion) => {
-    return suggestion.split(",").reverse().join("");
-  };
   return (
     <div>
       <form className="search-bar">
@@ -129,7 +126,7 @@ const SearchBar = (props) => {
                 <AutoCompleteItem
                   autoCompleteHandleClick={autoCompleteHandleClick}
                   key={i}
-                  label={reverseSuggestions(el.title)}
+                  label={el.name}
                 />
               );
             })}
