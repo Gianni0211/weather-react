@@ -1,7 +1,13 @@
 import React from "react";
+import "./DataBoard.css";
+import Highlights from "./Highliights/Highlights";
 
-const dataBoard = (proops) => {
-  return <div>Data Boards</div>;
+const DataBoard = (proops) => {
+  return (
+    <div className="data-board-container">
+      <Highlights />
+    </div>
+  );
 };
 
-export default dataBoard;
+export default DataBoard;

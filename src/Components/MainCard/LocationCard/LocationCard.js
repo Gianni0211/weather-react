@@ -13,7 +13,7 @@ const LocationCard = (props) => {
   }
   return (
     <div className="location-card-container">
-      <p class="location">{location}</p>
+      <p className="location">{location}</p>
     </div>
   );
 };
