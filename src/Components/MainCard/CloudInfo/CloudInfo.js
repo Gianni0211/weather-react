@@ -8,7 +8,7 @@ const CloudInfo = (props) => {
   const [currentWeather, setCurrentWeather] = useContext(
     LocationCurrentContext
   );
-  console.log(currentWeather);
+
   let cloudIcon = "03d";
   let cloudData = "";
   let rainIcon = "09d";

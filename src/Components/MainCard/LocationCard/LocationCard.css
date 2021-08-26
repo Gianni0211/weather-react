@@ -1,0 +1,15 @@
+.location-card-container {
+  margin: 2rem;
+  margin-top: 0.5rem;
+  background-color: #404fd0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1rem;
+  border-radius: 15px;
+  height: 80px;
+}
+.location {
+  font-weight: 600;
+}

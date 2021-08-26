@@ -3,6 +3,7 @@ import "./MainCard.css";
 import SearchBar from "./SearchBar/SearchBar";
 import IconCard from "./IconCard/IconCard";
 import CloudInfo from "./CloudInfo/CloudInfo";
+import LocationCard from "./LocationCard/LocationCard";
 
 const mainCard = (props) => {
   return (
@@ -10,6 +11,7 @@ const mainCard = (props) => {
       <SearchBar />
       <IconCard />
       <CloudInfo />
+      <LocationCard />
     </div>
   );
 };

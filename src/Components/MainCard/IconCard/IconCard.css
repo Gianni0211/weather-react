@@ -1,7 +1,7 @@
 .container {
-  margin: 2rem;
+  margin-inline: 2rem;
   border-bottom: 1px solid #f6f5f7;
-
+  margin-top: 0.5rem;
   padding-bottom: 1.5rem;
 }
 .icon {
