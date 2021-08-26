@@ -1,9 +1,17 @@
 .cloud-info-container {
-  margin: 2rem;
+  margin: 1.8rem;
+  margin-top: 0.5rem;
+  text-align: left;
 }
 .info-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+}
+.data-icon {
+  width: 2.5rem;
+  margin-right: 0.5rem;
+}
+.data {
+  font-size: small;
 }

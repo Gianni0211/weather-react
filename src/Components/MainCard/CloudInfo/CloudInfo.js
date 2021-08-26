@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./CloudInfo.css";
 import { iconUrl } from "../../../consts/url";
-
+import { capitaliseString } from "../../../utils/logic";
 import LocationCurrentContext from "../../../store/LocationCurrentContext";
 
 const CloudInfo = (props) => {
@@ -17,7 +17,7 @@ const CloudInfo = (props) => {
   if (Object.keys(currentWeather).length !== 0) {
     const currentTempData = currentWeather.list[0];
 
-    cloudData = currentTempData.weather[0].description;
+    cloudData = capitaliseString(currentTempData.weather[0].description);
     if (currentTempData.rain) {
       let percentage = (currentTempData.rain["3h"] * 100).toString() + "%";
       rainData = `Rain - ${percentage}`;
@@ -27,7 +27,7 @@ const CloudInfo = (props) => {
     <div className="cloud-info-container">
       <div className="info-container">
         <img
-          className="icon"
+          className="data-icon"
           src={`${iconUrl}${cloudIcon}.png`}
           alt="clouds icon"
         />
@@ -35,7 +35,7 @@ const CloudInfo = (props) => {
       </div>
       <div className="info-container">
         <img
-          className="icon"
+          className="data-icon"
           src={`${iconUrl}${rainIcon}.png`}
           alt="rain icon"
         />
