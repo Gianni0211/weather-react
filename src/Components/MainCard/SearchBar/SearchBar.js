@@ -97,7 +97,7 @@ const SearchBar = (props) => {
   };
 
   return (
-    <div>
+    <div className="search-container">
       <form className="search-bar">
         <SearchButton
           bg={"white-bg"}

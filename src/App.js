@@ -1,22 +1,18 @@
 import { useState } from "react";
 import "./App.css";
-import MainCard from "./Components/MainCard/MainCard";
-import DataBoard from "./Components/DataBoard/DataBoard";
+import MainData from "./Components/MainData/MainData";
+import InitialSearch from "./Components/InitialSearch/InitialSearch";
 import LocationCurrentContext from "./store/LocationCurrentContext";
 
 function App() {
   const [locationCurrentWeather, setLocationCurrentWeather] = useState({});
-
+  let isWeather =
+    Object.keys(locationCurrentWeather).length !== 0 ? true : false;
   return (
     <LocationCurrentContext.Provider
       value={[locationCurrentWeather, setLocationCurrentWeather]}
     >
-      <div className="App">
-        <div className="app-container">
-          <MainCard />
-          <DataBoard />
-        </div>
-      </div>
+      <div className="App">{isWeather ? <MainData /> : <InitialSearch />}</div>
     </LocationCurrentContext.Provider>
   );
 }

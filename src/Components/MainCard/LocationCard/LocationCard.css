@@ -1,6 +1,6 @@
 .location-card-container {
-  margin: 2rem;
-  margin-top: 0.5rem;
+  /* margin: 2rem; */
+  margin-top: 1rem;
   background-color: #404fd0;
   color: white;
   display: flex;
@@ -8,7 +8,7 @@
   justify-content: center;
   padding-inline: 1rem;
   border-radius: 15px;
-  height: 80px;
+  height: 90px;
 }
 .location {
   font-weight: 600;

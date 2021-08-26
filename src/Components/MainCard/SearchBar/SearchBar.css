@@ -1,6 +1,8 @@
+.search-container {
+  width: auto;
+}
 .search-bar {
   border-radius: 20px;
-
   color: black;
   display: flex;
   flex-direction: row;
@@ -18,4 +20,7 @@
 }
 .suggestions-container {
   overflow-y: auto;
+  position: absolute;
+  z-index: 100;
+  background-color: white;
 }

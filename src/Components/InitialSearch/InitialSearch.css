@@ -1,0 +1,21 @@
+.initial-search-container {
+  background-color: #d6d7db;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.search-container-wrapper {
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+}
+.search-title {
+  font-weight: 600;
+  margin-top: 3rem;
+}
