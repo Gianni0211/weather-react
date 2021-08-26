@@ -1,0 +1,9 @@
+.cloud-info-container {
+  margin: 2rem;
+}
+.info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

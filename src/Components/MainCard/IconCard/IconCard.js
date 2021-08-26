@@ -47,7 +47,7 @@ const IconCard = (props) => {
     let date = new Date(currentTempData.dt_txt);
     day = convertDay(date.getDay());
     time = currentTempData.dt_txt.split(" ")[1];
-    console.log(time);
+
     time = formatTime(time);
 
     iconSrc = `${iconUrl}${icon}@4x.png`;
